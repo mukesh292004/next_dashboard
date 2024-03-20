@@ -3,17 +3,16 @@ import { CalendarIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
 import { Revenue } from '@/app/lib/definitions';
 
+import { fetchRevenue } from '@/app/lib/data';
+
 // This component is representational only.
 // For data visualization UI, check out:
 // https://www.tremor.so/
 // https://www.chartjs.org/
 // https://airbnb.io/visx/
 
-export default async function RevenueChart({
-  revenue,
-}: {
-  revenue: Revenue[];
-}) {
+export default async function RevenueChart() {
+  const revenue: Revenue[] = await fetchRevenue();
   const chartHeight = 350;
   // NOTE: comment in this code when you get to this point in the course
 
@@ -41,7 +40,7 @@ export default async function RevenueChart({
             ))}
           </div>
 
-          {revenue.map((month) => (
+          {revenue && revenue.map((month) => (
             <div key={month.month} className="flex flex-col items-center gap-2">
               <div
                 className="w-full rounded-md bg-blue-300"
